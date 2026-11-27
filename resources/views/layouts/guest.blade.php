@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ config('app.name', 'Loja Play') }} · Conta</title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<header class="store-header">
+    <div class="store-head-inner">
+        <a class="brand" href="{{ route('home') }}"><span class="brand-mark">▶</span> LOJA<span>PLAY</span></a>
+        <form class="store-search" method="get" action="{{ route('games.index') }}">
+            <input name="q" value="{{ request('q') }}" placeholder="O que estás à procura?">
+            <button aria-label="Pesquisar">⌕</button>
+        </form>
+        <div class="store-actions">
+            <a href="{{ route('login') }}"><span class="action-icon">♙</span><span class="action-label">Perfil<small>Entrar</small></span></a>
+            <a href="{{ route('login') }}"><span class="action-icon">♡</span><span class="action-label">Favoritos</span></a>
+            <a class="cart-header-link" href="{{ route('cart.index') }}"><span class="action-icon">🛒</span><span class="action-label">Carrinho<small>{{ array_sum(session('cart', [])) }} artigo(s)</small></span></a>
+        </div>
+    </div>
+</header>
+<nav class="store-nav">
+    <a href="{{ route('home') }}">Início</a>
+    <a href="{{ route('categories.index') }}">Categorias</a>
+    <a href="{{ route('games.index') }}">Todos os jogos</a>
+    <a href="{{ route('contact') }}">Contactos</a>
+</nav>
+<main class="wrap auth-wrap">
+    @if(session('status'))<p class="notice">{{ session('status') }}</p>@endif
+    @if($errors->any())<div class="errors"><strong>Revê os campos:</strong><ul>@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>@endif
+    <section class="auth-panel">{{ $slot }}</section>
+</main>
+<footer>LOJA PLAY · Projeto académico ACR · <a href="{{ route('contact') }}">Contactos</a></footer>
+</body>
+</html>

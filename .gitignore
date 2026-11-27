@@ -1,0 +1,20 @@
+/vendor
+/node_modules
+/.env
+/public/build
+/storage/*.key
+/storage/logs/*
+.phpunit.cache
+
+# Local database, runtime and machine-specific files
+/database/*.sqlite
+/database/*.sqlite-*
+/php.ini
+/public/hot
+/public/storage
+/public/images/uploads/
+/bootstrap/cache/*.php
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*.log
