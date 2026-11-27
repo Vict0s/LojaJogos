@@ -1,0 +1,44 @@
+services:
+  - type: web
+    name: loja-jogos
+    runtime: docker
+    plan: free
+    region: frankfurt
+    branch: main
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /up
+    envVars:
+      - key: APP_NAME
+        value: Loja de Jogos
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_KEY
+        generateValue: true
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_URL
+        fromDatabase:
+          name: loja-jogos-db
+          property: connectionString
+      - key: SESSION_DRIVER
+        value: database
+      - key: CACHE_STORE
+        value: database
+      - key: QUEUE_CONNECTION
+        value: database
+      - key: ADMIN_NAME
+        value: "123"
+      - key: ADMIN_EMAIL
+        value: admin@lojajogos.test
+      - key: ADMIN_PASSWORD
+        generateValue: true
+
+databases:
+  - name: loja-jogos-db
+    databaseName: loja_jogos
+    user: loja_jogos_user
+    plan: free
+    region: frankfurt

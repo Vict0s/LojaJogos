@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Game::where('slug','aventura-demo')->delete();
-        $admin=User::updateOrCreate(['email'=>'admin@lojajogos.test'], ['name'=>'123','password'=>'123','is_admin'=>true]);
+        $admin=User::updateOrCreate(['email'=>env('ADMIN_EMAIL','admin@lojajogos.test')], ['name'=>env('ADMIN_NAME','123'),'password'=>env('ADMIN_PASSWORD','123'),'is_admin'=>true]);
         foreach ([['Jogo PlayStation','Jogos para consolas PlayStation.'],['Jogo Xbox','Jogos para consolas Xbox.'],['Jogo Nintendo','Jogos para consolas Nintendo.'],['Jogo PC','Jogos para computador.'],['Cartões de recarga e Gift Cards','Cartões digitais para adicionar saldo às tuas plataformas favoritas.']] as [$name,$description]) Category::firstOrCreate(['name'=>$name],['description'=>$description]);
         foreach (['switch2-split-fiction'=>'switch-mario-3d-world','xbox-street-fighter-6'=>'xbox-star-wars-galactic-racer','pc-the-sims-4'=>'pc-ea-sports-fc-27'] as $oldSlug => $newSlug) {
             Game::where('slug', $oldSlug)->update(['slug'=>$newSlug]);
