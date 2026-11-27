@@ -36,7 +36,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended(route('admin.games.index'));
         }
 
-        return redirect()->intended(route('home'));
+        return redirect()->route('home');
     }
 
     /**
